@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://code.alibabatech.com/schema/dubbo
+	   http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    <!-- 本机服务dubbo 服务定义 -->
+    <dubbo:application name="consumer" owner="programmer" />
+
+    <dubbo:annotation package="com.just.ytdemo.web"/>
+    <dubbo:consumer check="false"/>
+
+    <!-- 通用配置 -->
+    <dubbo:registry address="zookeeper://localhost:2181"/>
+    <!--<dubbo:monitor protocol="${dubbo.monitor.protocol}"/>-->
+    <!--<dubbo:provider retries="0" timeout="${dubbo.provider.timeout}" threads="${dubbo.provider.threads}"/>-->
+
+    <!--,check=false表示服务不启动消费者照样能启动-->
+    <!--<dubbo:reference id="studentService" interface="com.just.ytdemo.service.StudentService"  check="false"/>-->
+
+</beans>
