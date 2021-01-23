@@ -10,7 +10,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @EnableScheduling
 @MapperScan("com.just.ytdemo.dao.mapper")
-//@ImportResource(locations = {"classpath*:dubboProvider.xml"})
+@ImportResource(locations = {"classpath*:dubboProvider.xml"})
 public class YtdemoServiceApplication {
 
     public static void main(String[] args) {

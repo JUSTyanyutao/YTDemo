@@ -3,10 +3,7 @@ package com.just.ytdemo.web.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.just.ytdemo.web.module.request.StudentRequest;
 import com.just.ytdemo.service.StudentService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -23,9 +20,9 @@ public class StudentController {
     private StudentService studentService;
 
 
-    @PostMapping("index")
+    @RequestMapping("index")
     public String index(@RequestBody @Valid StudentRequest request){
-        System.out.println(1);
+//        System.out.println(1);
         return "欢迎你:"+ studentService.getStudent(request.getId()).getName();
     }
 

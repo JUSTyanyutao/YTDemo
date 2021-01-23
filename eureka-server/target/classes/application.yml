@@ -1,0 +1,13 @@
+server:
+  port: 8888
+
+#  http://localhost:8888/
+#指定服务名称，默认是unknown
+spring:
+  application:
+    name: eureka-server
+#注册自己，解决单独启动报错（eureka会作为集群，需相互注册）
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8888/eureka
