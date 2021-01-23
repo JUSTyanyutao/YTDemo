@@ -5,8 +5,8 @@
 
     <!-- 设置log日志存放地址 -->
     <!--（改） 单环境设置 -->
-    <!--<property name="LOG_HOME" value="D:/data/ytdemo" />-->
-    <property name="LOG_HOME" value="/data/applogs" />
+    <property name="LOG_HOME" value="D:/data/ytdemo" />
+<!--    <property name="LOG_HOME" value="/data/applogs" />-->
 
     <!-- 多环境设置 （如果你需要设置区分 生产环境，测试环境...）-->
     <!-- 如果需要设置多环境的配置，只设置以下注释内容是不够的，还需要给每个环境设置对应的配置文件如（application-dev.properties）-->
@@ -66,6 +66,6 @@
     <!--    打印sql-->
     <logger name="java.sql.Connection" level="ERROR" />
     <logger name="java.sql.PreparedStatement" level="ERROR" />
-    <logger name="com.jds.trade.dao" level="DEBUG" />
+    <logger name="com.just.ytdemo.dao" level="DEBUG" />
 
 </configuration>

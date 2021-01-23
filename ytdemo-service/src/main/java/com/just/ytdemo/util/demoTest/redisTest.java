@@ -14,9 +14,9 @@ public class redisTest {
 
     public void listTest(){
 
-//        redisTemplate.opsForList().
-        redisTemplate.getConnectionFactory().getConnection().publish()
-        redisTemplate.boundListOps("yt:test:list").leftPush();
+////        redisTemplate.opsForList().
+//        redisTemplate.getConnectionFactory().getConnection().publish()
+//        redisTemplate.boundListOps("yt:test:list").leftPush();
 
     }
 
