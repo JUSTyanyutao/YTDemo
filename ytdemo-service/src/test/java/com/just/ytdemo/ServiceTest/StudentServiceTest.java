@@ -58,4 +58,20 @@ public class StudentServiceTest {
 
     }
 
+
+
+
+    @Test
+    public void getStudentTest() {
+
+
+        studentService.getStudent(1L);
+
+
+
+
+
+    }
+
+
 }

@@ -32,10 +32,10 @@ import redis.clients.jedis.JedisCommands;
 public class CommonRedisService {
 
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+//    @Autowired
+//    private RedisTemplate redisTemplate;
     
-    @Resource(name = "stringRedisTemplate")
+    @Resource(name = "redisTemplate")
     private StringRedisTemplate stringRedisTemplate;
 
     public void set(String key, String value) {
@@ -55,23 +55,23 @@ public class CommonRedisService {
     }
 
     public void setObject(String key, Object value) {
-        redisTemplate.opsForValue().set(key, value);
+        stringRedisTemplate.opsForValue().set(key, (String) value);
     }
 
     public void setObjectExp(String key, Object value, long timeout, TimeUnit unit) {
-        redisTemplate.opsForValue().set(key, value, timeout, unit);
+        stringRedisTemplate.opsForValue().set(key, (String) value, timeout, unit);
     }
 
     public Object getObject(String key) {
-        return redisTemplate.opsForValue().get(key);
+        return stringRedisTemplate.opsForValue().get(key);
     }
 
     public boolean expire(String key, long timeout) {
-        return redisTemplate.expire(key, timeout, TimeUnit.SECONDS);
+        return stringRedisTemplate.expire(key, timeout, TimeUnit.SECONDS);
     }
 
     public void delete(String key) {
-        redisTemplate.delete(key);
+        stringRedisTemplate.delete(key);
     }
 
     public String rpop(String key) {
@@ -120,7 +120,7 @@ public class CommonRedisService {
     }
     
     public Set<Long> getSet(String key) {
-        Set<Object> objSet = redisTemplate.opsForSet().members(key);
+        Set<Object> objSet = Collections.singleton(stringRedisTemplate.opsForSet().members(key));
         Set<Long> longSet = new LinkedHashSet<>();
         if (!CollectionUtils.isEmpty(objSet)) {
             for (Object o : objSet) {
@@ -145,7 +145,7 @@ public class CommonRedisService {
      * @param object
      */
     public void pushMessageToSubscribe(String subscribePoint, Object object) {
-    	redisTemplate.convertAndSend(subscribePoint, object);
+        stringRedisTemplate.convertAndSend(subscribePoint, object);
     }
     
     /**
@@ -160,7 +160,7 @@ public class CommonRedisService {
         long start = System.currentTimeMillis();
         try {
             while ((System.currentTimeMillis() - start) < seconds) {
-                boolean flag = (Boolean) redisTemplate.execute(new RedisCallback() {
+                boolean flag = (Boolean) stringRedisTemplate.execute(new RedisCallback() {
                     @Override
                     public Boolean doInRedis(RedisConnection redisConnection) throws DataAccessException {
                         return redisConnection.setNX(getLockKey(key).getBytes(), value.getBytes());
@@ -168,7 +168,7 @@ public class CommonRedisService {
                 });
                 if (flag) {
                     //暂设置为60s过期，防止异常中断锁未释放
-                    redisTemplate.expire(getLockKey(key), seconds, TimeUnit.SECONDS);
+                    stringRedisTemplate.expire(getLockKey(key), seconds, TimeUnit.SECONDS);
                     return true;
                 }
                 TimeUnit.SECONDS.sleep(3);
@@ -181,7 +181,7 @@ public class CommonRedisService {
     }
 
     public void deleteNx(String key) {
-        RedisConnection connection = redisTemplate.getConnectionFactory().getConnection();
+        RedisConnection connection = stringRedisTemplate.getConnectionFactory().getConnection();
         connection.del(getLockKey(key).getBytes());
         connection.close();
     }
@@ -192,31 +192,31 @@ public class CommonRedisService {
 
 
     public Boolean setIfAbsent(String lockName, String lockValue) {
-        return redisTemplate.opsForValue().setIfAbsent(lockName, lockValue);
+        return stringRedisTemplate.opsForValue().setIfAbsent(lockName, lockValue);
     }
 
     public Boolean isExistSet(String key, Long wid) {
-        return redisTemplate.opsForSet().isMember(key, wid);
+        return stringRedisTemplate.opsForSet().isMember(key, wid);
     }
 
     public Long getSetSize(String key) {
-        return redisTemplate.opsForSet().size(key);
+        return stringRedisTemplate.opsForSet().size(key);
     }
 
     public void putSet(String key, Long wid) {
-        redisTemplate.opsForSet().add(key, wid);
+        stringRedisTemplate.opsForSet().add(key, String.valueOf(wid));
     }
 
     public void deleteSet(String key, Long wid) {
-        redisTemplate.opsForSet().remove(key, wid);
+        stringRedisTemplate.opsForSet().remove(key, wid);
     }
 
     public void batchPutSet(final String key, final Set<Long> wids) {
-        redisTemplate.executePipelined(new RedisCallback<Long>() {
+        stringRedisTemplate.executePipelined(new RedisCallback<Long>() {
             @Override
             public Long doInRedis(RedisConnection redisConnection) throws DataAccessException {
                 redisConnection.openPipeline();
-                RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
+                RedisSerializer<String> serializer = stringRedisTemplate.getStringSerializer();
                 byte[] serKey = serializer.serialize(key);
                 for (Long wid : wids) {
                     redisConnection.sAdd(serKey, serializer.serialize(String.valueOf(wid)));

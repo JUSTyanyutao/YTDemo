@@ -7,11 +7,22 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.connection.RedisPassword;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import javax.sql.DataSource;
+import java.time.Duration;
 
 /**
  * Created on 2018-03-15 下午11:17.
@@ -22,7 +33,7 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig {
     @Bean
-    @ConfigurationProperties("jdbc")
+    @ConfigurationProperties(prefix = "jdbc")
     public DataSource dataSource() {
         return new DruidDataSource();
     }
@@ -38,7 +49,20 @@ public class DataSourceConfig {
         return mapper;
     }
 
-//    @Primary
+    @Bean
+    public StringRedisTemplate redisTemplate(
+            @Value("${spring.redis.database}") int database,
+            @Value("${spring.redis.host}") String hostName,
+            @Value("${spring.redis.port}") int port,
+            @Value("${spring.redis.password}") String password) {
+        StringRedisTemplate temple = new StringRedisTemplate();
+        temple.setConnectionFactory(jedisConnectionFactory(database, hostName, port, password));
+        temple.setKeySerializer(new StringRedisSerializer());
+        GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
+        temple.setValueSerializer(genericJackson2JsonRedisSerializer);
+        temple.setDefaultSerializer(genericJackson2JsonRedisSerializer);
+        return temple;
+    }
 //    @Bean("redisTemplate")
 //    public RedisTemplate getRedisTemplate(JedisConnectionFactory jedisConnectionFactory) {
 //        RedisTemplate template = new RedisTemplate();
@@ -49,4 +73,24 @@ public class DataSourceConfig {
 //        template.setDefaultSerializer(genericJackson2JsonRedisSerializer);
 //        return template;
 //    }
+
+
+
+
+
+    protected JedisConnectionFactory jedisConnectionFactory(int database, String hostName, int port, String password) {
+        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
+        redisStandaloneConfiguration.setHostName(hostName);
+        redisStandaloneConfiguration.setPort(port);
+        redisStandaloneConfiguration.setDatabase(database);
+        redisStandaloneConfiguration.setPassword(RedisPassword.of(password));
+        JedisClientConfiguration.JedisClientConfigurationBuilder jedisClientConfiguration = JedisClientConfiguration.builder();
+        jedisClientConfiguration.connectTimeout(Duration.ofSeconds(60));// 60s
+        // connection
+        // timeout
+        return new JedisConnectionFactory(redisStandaloneConfiguration, jedisClientConfiguration.build());
+    }
+
+
+
 }
