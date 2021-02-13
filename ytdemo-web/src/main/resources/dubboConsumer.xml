@@ -18,6 +18,6 @@
     <!--<dubbo:provider retries="0" timeout="${dubbo.provider.timeout}" threads="${dubbo.provider.threads}"/>-->
 
     <!--,check=false表示服务不启动消费者照样能启动-->
-    <!--<dubbo:reference id="studentService" interface="com.just.ytdemo.service.StudentService"  check="false"/>-->
+    <dubbo:reference id="studentService" interface="com.just.ytdemo.service.StudentService"  check="false"/>
 
 </beans>

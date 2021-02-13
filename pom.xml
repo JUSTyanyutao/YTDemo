@@ -15,18 +15,17 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.0.RELEASE</version>
-<!--        <version>2.0.2.RELEASE</version>-->
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+
     <modules>
+        <module>ytdemo-common</module>
         <module>ytdemo-service</module>
         <module>ytdemo-service-common</module>
         <module>ytdemo-web</module>
     </modules>
 
     <properties>
-<!--        <spring.boot.version>2.0.2.RELEASE</spring.boot.version>-->
         <spring.boot.version>2.1.0.RELEASE</spring.boot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -46,13 +45,13 @@
     <dependencyManagement>
         <dependencies>
 
-            <!--<dependency>-->
-                <!--<groupId>org.springframework.boot</groupId>-->
-                <!--<artifactId>spring-boot-dependencies</artifactId>-->
-                <!--<version>2.1.0.RELEASE</version>-->
-                <!--<type>pom</type>-->
-                <!--<scope>import</scope>-->
-            <!--</dependency>-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.1.0.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -179,6 +178,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.3.4.RELEASE</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -19,8 +19,8 @@ public class TestJobDemo {
     @Scheduled(cron = "0 */1 * * * ?")  //每1min执行一次
 //    @Scheduled(fixedDelay = 5000)         // 每5秒执行一次
     public void test() {
-        Singleton.getInstance();
-//        System.out.println("我进来了");
+//        Singleton.getInstance();
+        System.out.println("我进来了");
 //        log.info(System.currentTimeMillis() + "");
     }
 

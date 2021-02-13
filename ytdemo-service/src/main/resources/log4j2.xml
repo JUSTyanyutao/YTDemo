@@ -63,4 +63,9 @@
         <appender-ref ref="STDOUT" />
     </root>
 
+    <!--    打印sql-->
+    <logger name="java.sql.Connection" level="ERROR" />
+    <logger name="java.sql.PreparedStatement" level="ERROR" />
+    <logger name="com.jds.trade.dao" level="DEBUG" />
+
 </configuration>
