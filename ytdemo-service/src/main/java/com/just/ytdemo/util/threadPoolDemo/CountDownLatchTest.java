@@ -1,7 +1,5 @@
 package com.just.ytdemo.util.threadPoolDemo;
 
-import lombok.SneakyThrows;
-
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -26,6 +24,7 @@ public class CountDownLatchTest {
      *  当state == 0  阻塞队列节点线程全部释放
      *
      */
+
 
 
 
@@ -56,14 +55,17 @@ public class CountDownLatchTest {
     /**
      * 线程2
      * */
-    public static ArrayList threadTest2(ArrayList<Integer> list, CountDownLatch latch  )  {
+    public static ArrayList threadTest2(ArrayList<Integer> list, CountDownLatch latch  ){
         ThreadPoolExecutor threadPoolExecutor = ThreadPoolConfig.commonTaskExecutor();
         Thread thread = new Thread() {
-            @SneakyThrows
             @Override
             public void run() {
                 System.out.println("线程3  我进来了,需要等待线程1 线程2 执行完");
-                latch.await();
+                try {
+                    latch.await();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 System.out.println("线程3  等待结束");
 //                synchronized (ThreadPoolTest.class) {
                     for (int i=0; i<30; i++) {
