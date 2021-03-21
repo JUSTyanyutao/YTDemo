@@ -4,6 +4,8 @@ package com.just.ytdemo.commonUtil;
 import com.just.ytdemo.functionInterface.RunExecutor;
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -129,9 +131,13 @@ public class LambdaTool {
         users.add(tool.new User(9, false, "小夫"));
         users.add(tool.new User(4, false, "小鸡"));
 
+        Double a =  0.0003;
+
+        String scaleStr = String.format("%.4f", a);
+        System.out.println(scaleStr); // 0.0005
 
 
-        pageBySubList(users,2,1);
+//        pageBySubList(users,2,1);
 
 //        List<User> list = users.stream().filter(user ->  user.getUserId() <= 5 ).distinct(users.).collect(Collectors.toList());
 

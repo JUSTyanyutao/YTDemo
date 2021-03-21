@@ -64,8 +64,8 @@
     </root>
 
     <!--    打印sql-->
-    <logger name="java.sql.Connection" level="ERROR" />
-    <logger name="java.sql.PreparedStatement" level="ERROR" />
-    <logger name="com.just.ytdemo.dao" level="DEBUG" />
+<!--    <logger name="java.sql.Connection" level="ERROR" />-->
+<!--    <logger name="java.sql.PreparedStatement" level="ERROR" />-->
+<!--    <logger name="com.just.ytdemo.dao" level="DEBUG" />-->
 
 </configuration>
