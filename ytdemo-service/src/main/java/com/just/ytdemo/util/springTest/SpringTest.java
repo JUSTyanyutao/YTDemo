@@ -11,6 +11,22 @@ import org.springframework.core.env.ConfigurableEnvironment;
 @ComponentScan(value = "com.just.ytdemo.service")
 public class SpringTest {
 
+    /**
+     *
+     *      单实例bean  默认bean  随着容器初始化 而初始化
+     *      多实例bean  使用的时候 初始化
+     *
+     *
+     *     1、注解@Controller   @service   @component
+     *     2、@Bean
+     *     3、@import  导入
+     *     4、使用factoryBean对象  实现factoryBean接口  工厂bean
+     *
+     *
+     *
+     *
+     */
+
 
 
     public static void main(String[] args) {
