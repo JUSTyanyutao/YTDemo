@@ -7,7 +7,6 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableAutoConfiguration
 @EnableScheduling
 @ImportResource(locations = {"classpath*:dubboConsumer.xml"})
 public class YtdemoWebApplication {

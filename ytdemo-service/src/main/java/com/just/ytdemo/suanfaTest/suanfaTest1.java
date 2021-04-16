@@ -1,12 +1,13 @@
 package com.just.ytdemo.suanfaTest;
 
 import com.just.ytdemo.demoTest.DataStructureTest.Node;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
 
-public class suanfaTest {
+public class suanfaTest1 {
+
+    public static int[] a = new int[]{5,3,4,7,6,10};
 
 
     /**
@@ -26,10 +27,44 @@ public class suanfaTest {
      * 快排
      * @param arr
      */
-    public static void quickSort(int[] arr){
+    public static void quickSort(int[] arr,int begin ,int end){
+
+        if ( end<=begin ) {
+            return ;
+        }
+        int baseNum = arr[begin];
+
+        int temp ;
+        int i = begin;
+        int j = end;
+
+        while ( i <j ) {
+
+            // 从准基右边找 小于准基的数
+            while ( i < j && arr[j] >= baseNum   ) {
+                j--;
+            }
+
+            //从准基左边找 大于 准基的数
+            while ( i < j && arr[i] <= baseNum  ) {
+                i++;
+            }
 
 
 
+            if (i < j) {
+                temp = arr[i];
+                arr[i] = arr[j];
+                arr[j]= temp;
+            }
+        }
+
+        // 此时 i = j  相遇  这个数是个中间位置  把这个数 和准基 进行交换
+        arr[begin] = arr[i];
+        arr[i] = baseNum;
+
+        quickSort(arr,0,i-1);
+        quickSort(arr,i+1,end);
 
     }
 
@@ -109,54 +144,6 @@ public class suanfaTest {
     }
 
 
-    public static void getMaxStr1(String str){
-        if (StringUtils.isEmpty(str)) {
-            return;
-        }
-        // 长度
-        int length = str.length();
-        // 结果
-        int result = 0;
-
-        int begin = 0 , end = 0;
-
-        Set<Character> set = new HashSet<>();
-
-        for (; begin<length && end < length;) {
-            if (set.contains(str.charAt(end))) {
-                set.remove(str.charAt(begin));
-                begin++;
-            } else {
-                set.add(str.charAt(end));
-                end++;
-                result = Math.max(result,end-begin);
-            }
-        }
-        System.out.println(result);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * 求和 2个链表 从高位到低位 求和
@@ -175,8 +162,11 @@ public class suanfaTest {
      *
      */
     public static void nodeRese1(Node node){
-        Node nextNode = null;
+        if (node == null) {
+            return;
+        }
         Node preNode = null;
+        Node nextNode = null;
 
         while (node != null) {
             nextNode = node.next;
@@ -184,7 +174,22 @@ public class suanfaTest {
             preNode = node;
             node = nextNode;
         }
-        System.out.println(preNode.toString());
+
+        System.out.println(preNode);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
@@ -218,8 +223,6 @@ public class suanfaTest {
         String str1 = "123阿迪达斯adidas男女休闲鞋DB";
         getMaxStr(str1);
 
-        getMaxStr1(str1);
-
         // 链表
 //        Node<String> n1= new Node<>();
 //        Node<String> n2= new Node<>();
@@ -233,6 +236,10 @@ public class suanfaTest {
 //        n2.next = n3;
 //        n3.next = n4;
 //        nodeRese1(n1);
+
+
+        quickSort(a,0,a.length-1);
+        System.out.println(Arrays.toString(a));
 
 
     }
