@@ -1,5 +1,6 @@
 package com.just.ytdemo.aspect;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
@@ -45,12 +46,24 @@ public class LogAspect {
 
 
     /**
-     * 环绕通知
+     * 返回通知
      */
-    @Around("pointCut()")
-    public void aroundLog(){
-        System.out.println("around log");
+    @AfterReturning("pointCut()")
+    public void afterReturnLog(){
+        System.out.println("afterReturn log");
     }
+
+
+//    /**
+//     * 环绕通知
+//     */
+//    @Around("pointCut()")
+//    public void aroundLog(JoinPoint joinPoint){
+//
+//
+//
+//        System.out.println("around log");
+//    }
 
 
 }

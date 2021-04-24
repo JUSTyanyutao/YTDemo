@@ -23,7 +23,7 @@ public class StudentController {
     @RequestMapping("index")
     public String index(@RequestBody @Valid StudentRequest request){
 //        System.out.println(1);
-        return "欢迎你:"+ studentService.getStudent(request.getId()).getName();
+        return "欢迎你:"+ studentService.getStudent(request.getId());
     }
 
 
