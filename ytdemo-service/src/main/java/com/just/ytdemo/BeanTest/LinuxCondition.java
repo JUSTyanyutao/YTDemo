@@ -8,6 +8,6 @@ public class LinuxCondition implements Condition {
 
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        return false;
+        return true;
     }
 }

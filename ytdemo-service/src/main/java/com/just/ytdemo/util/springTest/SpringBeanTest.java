@@ -1,6 +1,7 @@
 package com.just.ytdemo.util.springTest;
 
 import com.just.ytdemo.BeanTest.Car;
+import com.just.ytdemo.BeanTest.LinuxCondition;
 import org.springframework.context.annotation.*;
 
 import java.sql.SQLOutput;
@@ -43,9 +44,10 @@ public class SpringBeanTest {
 
 
 
-    @Conditional({new Condition()})
+    @Conditional({LinuxCondition.class})
     @Bean
     public Car getCar1(){
+        System.out.println("car1  linux init-------------------");
         return new Car();
     }
 
