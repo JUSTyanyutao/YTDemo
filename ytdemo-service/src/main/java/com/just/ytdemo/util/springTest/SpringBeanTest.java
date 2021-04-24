@@ -5,7 +5,6 @@ import com.just.ytdemo.BeanTest.ChinaPersonCondition;
 import com.just.ytdemo.BeanTest.Person;
 import org.springframework.context.annotation.*;
 
-import java.sql.SQLOutput;
 
 @ComponentScan("com.just.ytdemo.BeanTest")
 @Configuration
@@ -45,7 +44,9 @@ public class SpringBeanTest {
 
 
 
-    @Bean()
+
+
+    @Bean
     public Person person1(){
         return new Person("习大大");
     }
@@ -55,10 +56,6 @@ public class SpringBeanTest {
     public Person person2(){
         return new Person("奥巴马");
     }
-
-
-
-
 
 
 
