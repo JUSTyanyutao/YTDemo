@@ -1,10 +1,9 @@
 package com.just.ytdemo.util.springTest;
 
 import com.just.ytdemo.BeanTest.Car;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import com.just.ytdemo.BeanTest.ChinaPersonCondition;
+import com.just.ytdemo.BeanTest.Person;
+import org.springframework.context.annotation.*;
 
 import java.sql.SQLOutput;
 
@@ -46,6 +45,20 @@ public class SpringBeanTest {
 
 
 
+    @Bean()
+    public Person person1(){
+        return new Person("习大大");
+    }
+
+    @Conditional({ChinaPersonCondition.class})
+    @Bean
+    public Person person2(){
+        return new Person("奥巴马");
+    }
+
+
+
+
 
 
 
@@ -54,6 +67,15 @@ public class SpringBeanTest {
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringBeanTest.class);
         System.out.println("容器创建完成----");
+
+
+
+        String[] beanNames =  context.getBeanNamesForType(Person.class);
+        for (String name : beanNames) {
+            System.out.println(name);
+            Person person = (Person) context.getBean(name);
+            System.out.println(person.getName());
+        }
 
 //        System.out.println(((Car)context.getBean("car")).getName());
 

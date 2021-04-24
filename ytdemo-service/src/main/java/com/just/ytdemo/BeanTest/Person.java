@@ -29,6 +29,9 @@ public class Person implements  InitializingBean , DisposableBean , ApplicationC
         System.out.println("person 构造器... order:" + i);
     }
 
+    public Person(String name) {
+        this.name = name;
+    }
 
     @Override
     public void destroy() throws Exception {
