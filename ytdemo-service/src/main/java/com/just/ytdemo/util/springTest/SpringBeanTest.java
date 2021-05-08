@@ -6,8 +6,8 @@ import com.just.ytdemo.BeanTest.Person;
 import org.springframework.context.annotation.*;
 
 
-@ComponentScan("com.just.ytdemo.BeanTest")
-@Configuration
+//@ComponentScan("com.just.ytdemo.BeanTest")
+//@Configuration
 public class SpringBeanTest {
 
 
