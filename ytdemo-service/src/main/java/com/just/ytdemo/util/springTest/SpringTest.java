@@ -8,7 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.ConfigurableEnvironment;
 
-@ComponentScan(value = "com.just.ytdemo.service")
+//@ComponentScan(value = "com.just.ytdemo.service")
 public class SpringTest {
 
     /**

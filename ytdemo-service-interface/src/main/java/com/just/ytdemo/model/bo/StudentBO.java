@@ -14,11 +14,11 @@ public class StudentBO implements Serializable {
 
     private static final long serialVersionUID = 5481455390528299622L;
 
-    private Integer id;
+    private Long id;
 
     private String name;
 
-    private Date addTime;
+    private Date createTime;
 
     private Date updateTime;
 

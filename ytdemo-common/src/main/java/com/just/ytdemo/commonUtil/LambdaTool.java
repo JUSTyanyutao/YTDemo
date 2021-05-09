@@ -1,15 +1,13 @@
 package com.just.ytdemo.commonUtil;
 
 
+import com.alibaba.fastjson.JSON;
 import com.just.ytdemo.functionInterface.RunExecutor;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -165,7 +163,20 @@ public class LambdaTool {
         while ( c != null ) {
             System.out.println(c);
             c = c.getParent();
+
         }
+
+        Map<String, Map<String ,String >> m = new HashMap<>();
+        Map<String,String> m1 = new HashMap<>();
+        m1.put("type","text");
+        m1.put("content","1");
+        Map<String,String> m2 = new HashMap<>();
+        m2.put("type","image");
+        m2.put("content","2");
+        m.put("0",m1);
+        m.put("1",m2);
+        System.out.println(JSON.toJSONString(m));
+
 
 
     }

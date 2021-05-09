@@ -11,8 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Data
-@Component
-public class Dog implements  InitializingBean , DisposableBean ,BeanPostProcessor  {
+public class Dog implements  InitializingBean , DisposableBean {
 
     private Integer i = 0;
 
@@ -47,22 +46,5 @@ public class Dog implements  InitializingBean , DisposableBean ,BeanPostProcesso
     @PreDestroy
     public void destory1(){
 //        System.out.println("dog ---  destory1 ----");
-    }
-
-
-    @Override
-    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        i = i +1;
-        System.out.println("dog ---  postProcessBeforeInitialization ---- order:"+i);
-
-        return bean;
-    }
-
-    @Override
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        i = i +1;
-        System.out.println("dog ---  postProcessAfterInitialization ---- order:"+i);
-
-        return bean;
     }
 }
