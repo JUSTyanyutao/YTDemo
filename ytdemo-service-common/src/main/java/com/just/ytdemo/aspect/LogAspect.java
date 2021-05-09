@@ -7,6 +7,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
@@ -19,6 +20,55 @@ import org.springframework.util.StopWatch;
  * 返回通知 @AfterReturning
  * 异常通知 @AfterThrowing
  * 环绕通知 @After
+ *
+ * 【AOP 原理   给容器中注册了什么组件  这个组件何时做了什么 】
+ *
+ *   @EnableAspectJAutoProxy
+ *   @Import({AspectJAutoProxyRegistrar.class})
+ *
+ *   注册enableAspectJAutoProxy =   AnnotationAwareAspectJAutoProxyCreator
+ *   给容器创建一个   AnnotationAwareAspectJAutoProxyCreator   注解切面代理创建器
+ *                      AspectJAwareAdvisorAutoProxyCreator
+ *                          AbstractAdvisorAutoProxyCreator
+ *                              AbstractAutoProxyCreator
+ *   implements SmartInstantiationAwareBeanPostProcessor, BeanFactoryAware
+ *
+ *   关注后置处理器  BeanPostProcessor 以及  自动装配BeanFactory
+ *
+ *    AbstractAutoProxyCreator.setBeanFactory
+ *    AbstractAutoProxyCreator.postProcessBeforeInstantiation   后置处理器的逻辑
+ *
+ *    AbstractAdvisorAutoProxyCreator.setBeanFactory   ------>   initBeanFactory()
+ *
+ *    AnnotationAwareAspectJAutoProxyCreator ----->  initBeanFactory()
+ *
+ *
+ *
+ *      postProcessBeforeInstantiation
+ *      每一个bean创建前，调用postProcessBeforeInstantiation
+ *
+ *      调用postProcessAfterInitialization   ----->   wrapIfNecessary  ----- >   createProxy  创建代理类
+ *
+ *      DefaultAopProxyFactory   ---- >  createAopProxy  创建代理对象  spring自行决定
+ *          JdkDynamicAopProxy   jdk代理      ----->          impl    InvocationHandler
+ *          ObjenesisCglibAopProxy    cglib代理     ------>   extends CglibAopProxy
+ *
+ *          以后容器中获取到的就是这个容器的代理对象，执行目标方法的时候，代理对象就会执行通知方法的流程
+ *
+ *
+ *       目标方法执行:
+ *       CglibAopProxy ---->  DynamicAdvisedInterceptor ---->  intercept
+ *
+ *      如果有拦截器量   ReflectiveMethodInvocation ->     proceed()
+ *
+ *
+ *
+ *
+ *
+ *  @see org.springframework.aop.interceptor.ExposeInvocationInterceptor
+ *
+ *
+ *
  *
  */
 @Slf4j

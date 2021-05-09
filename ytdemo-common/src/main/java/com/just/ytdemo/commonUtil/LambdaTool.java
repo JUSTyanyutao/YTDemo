@@ -161,6 +161,13 @@ public class LambdaTool {
         list.forEach((obj)-> System.out.println(obj ) );
 
 
+        ClassLoader c = LambdaTool.class.getClassLoader();
+        while ( c != null ) {
+            System.out.println(c);
+            c = c.getParent();
+        }
+
+
     }
 
 

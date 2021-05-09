@@ -3,6 +3,7 @@ package com.just.ytdemo.util.springTest;
 import com.just.ytdemo.BeanTest.Car;
 import com.just.ytdemo.BeanTest.ChinaPersonCondition;
 import com.just.ytdemo.BeanTest.Person;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.*;
 
 
@@ -64,8 +65,6 @@ public class SpringBeanTest {
 
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringBeanTest.class);
         System.out.println("容器创建完成----");
-
-
 
         String[] beanNames =  context.getBeanNamesForType(Person.class);
         for (String name : beanNames) {
